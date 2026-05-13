@@ -58,9 +58,10 @@ export default function CombinedTealDarkCVFixed() {
           </p>
           <p className="leading-relaxed text-sm text-[#d1d5db] max-w-3xl">
             Research interests include psychoacoustics, immersive environments,
-            and museum-style audiovisual installations. Currently preparing
-            re-entry into the final year of BDES Sound for the Moving Image
-            (Senate Appeal ongoing).
+            and museum-style audiovisual installations. Completed a BDes Sound
+            for the Moving Image undergraduate degree, with ongoing interests in
+            immersive audio, interactive media, and technical sound design
+            workflows.
           </p>
         </section>
 
@@ -102,7 +103,8 @@ export default function CombinedTealDarkCVFixed() {
                 <br />
                 Glasgow School of Art
                 <br />
-                Completed up to Year 3; Senate Appeal for Year 4 in progress
+                Completed BDes Sound for the Moving Image undergraduate degree
+                without Honors
               </li>
               <li>
                 <strong>HND Sound Production</strong> — Grade B
@@ -371,8 +373,8 @@ export function CombinedTealDarkCVSidebar() {
                 </p>
                 <p className="text-[#9ca3af]">Glasgow School of Art</p>
                 <p className="text-[#9ca3af]">
-                  Completed up to Year 3 — Senate Appeal for Year 4 re-entry in
-                  progress
+                  Completed BDes Sound for the Moving Image undergraduate degree
+                  without Honors
                 </p>
               </div>
               <div>
