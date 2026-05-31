@@ -7,6 +7,7 @@ import {
   ExternalLink,
   FileText,
   BadgeCheck,
+  Github,
 } from "lucide-react";
 
 type CVView = "sidebar" | "full";
@@ -19,6 +20,7 @@ const pdfPreview = (path: string) =>
 
 const portfolioWebsiteUrl = "https://dongbuuwns.wixsite.com/nathancampbellav";
 const credlyUrl = "https://www.credly.com/users/nathan-campbell.a0bb7503";
+const githubUrl = "https://github.com/dongbuuwns-png";
 
 const topBadges = [
   {
@@ -89,7 +91,8 @@ function TopControls({
           </h1>
           <p className="mt-1 max-w-3xl text-sm text-[#9ca3af]">
             Select the CV layout, open the portfolio website, view my Credly
-            profile, or click a badge to open its certificate.
+            profile, open my GitHub profile, or click a badge to open its
+            certificate.
           </p>
         </div>
 
@@ -134,6 +137,15 @@ function TopControls({
             className="inline-flex whitespace-nowrap items-center gap-2 rounded-full border border-[#a855f7]/40 px-4 py-2 text-sm font-semibold text-[#d1d5db] hover:bg-[#a855f7]/10"
           >
             Credly <FileText className="h-4 w-4" />
+          </a>
+
+          <a
+            href={githubUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex whitespace-nowrap items-center gap-2 rounded-full border border-[#64748b]/50 px-4 py-2 text-sm font-semibold text-[#d1d5db] hover:bg-[#64748b]/10"
+          >
+            GitHub <Github className="h-4 w-4" />
           </a>
         </div>
       </div>
@@ -206,6 +218,16 @@ function ContactBlock() {
         <Phone className="h-4 w-4 text-[#22f3b7]" />
         <span>07754598513</span>
       </div>
+
+      <a
+        href={githubUrl}
+        target="_blank"
+        rel="noreferrer"
+        className="flex items-center gap-2 hover:text-[#22f3b7]"
+      >
+        <Github className="h-4 w-4 text-[#22f3b7]" />
+        <span>GitHub profile</span>
+      </a>
 
       <div className="flex items-center gap-2">
         <Globe2 className="h-4 w-4 text-[#22f3b7]" />
@@ -356,7 +378,8 @@ function GoalsBlock() {
         <BadgeCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#22f3b7]" />
         Keep a light but useful software engineering direction in view, mainly
         where it supports audio tools, DSP learning, acoustic calculators,
-        automation scripts, and software-facing audio roles.
+        automation scripts, GitHub documentation, and software-facing audio
+        roles.
       </p>
     </div>
   );
