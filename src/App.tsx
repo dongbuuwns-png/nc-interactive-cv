@@ -12,17 +12,28 @@ import {
 
 type CVView = "sidebar" | "full";
 
+type BadgeItem = {
+  imageSrc: string;
+  certHref: string;
+  alt: string;
+  label: string;
+};
+
+type CertificateItem = {
+  certHref: string;
+  previewSrc: string;
+  label: string;
+  subtitle: string;
+};
+
 const asset = (path: string) =>
   `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
-
-const pdfPreview = (path: string) =>
-  `${path}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`;
 
 const portfolioWebsiteUrl = "https://dongbuuwns.wixsite.com/nathancampbellav";
 const credlyUrl = "https://www.credly.com/users/nathan-campbell.a0bb7503";
 const githubUrl = "https://github.com/dongbuuwns-png/nc-interactive-cv";
 
-const topBadges = [
+const topBadges: BadgeItem[] = [
   {
     imageSrc: asset("badges/avid-pro-tools-game-audio-specialist.png"),
     certHref: asset("certificates/pro-tools-specialist-certifcate.pdf"),
@@ -45,9 +56,10 @@ const topBadges = [
   },
 ];
 
-const certificates = [
+const certificates: CertificateItem[] = [
   {
     certHref: asset("certificates/pro-tools-specialist-certifcate.pdf"),
+    previewSrc: asset("certificate-previews/pro-tools-specialist.png"),
     label: "Pro Tools Specialist",
     subtitle: "Avid certificate",
   },
@@ -55,17 +67,24 @@ const certificates = [
     certHref: asset(
       "certificates/pro-tools-game-audio-specialist-certification.pdf"
     ),
+    previewSrc: asset(
+      "certificate-previews/pro-tools-game-audio-specialist.png"
+    ),
     label: "Pro Tools Game Audio Specialist",
     subtitle: "Avid certificate",
   },
   {
     certHref: asset("certificates/wwise-fundamentals-certificate.pdf"),
+    previewSrc: asset("certificate-previews/wwise-fundamentals.png"),
     label: "Wwise Fundamentals",
     subtitle: "Audiokinetic certificate",
   },
   {
     certHref: asset(
       "certificates/sololearn-introduction-to-python-certificate.pdf"
+    ),
+    previewSrc: asset(
+      "certificate-previews/sololearn-introduction-to-python.png"
     ),
     label: "Introduction to Python",
     subtitle: "SoloLearn certificate",
@@ -237,9 +256,15 @@ function ContactBlock() {
   );
 }
 
-function CertificateGrid() {
+function CertificateGrid({ compact = false }: { compact?: boolean }) {
   return (
-    <div className="grid grid-cols-1 gap-4">
+    <div
+      className={
+        compact
+          ? "grid grid-cols-1 gap-4"
+          : "grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
+      }
+    >
       {certificates.map((certificate) => (
         <div
           key={certificate.label}
@@ -251,11 +276,17 @@ function CertificateGrid() {
             rel="noreferrer"
             className="block"
           >
-            <div className="h-36 w-full overflow-hidden bg-white">
-              <iframe
-                src={pdfPreview(certificate.certHref)}
-                title={certificate.label}
-                className="h-[320px] w-full origin-top scale-[0.48] border-0"
+            <div
+              className={
+                compact
+                  ? "flex h-36 w-full items-center justify-center overflow-hidden bg-white"
+                  : "flex h-44 w-full items-center justify-center overflow-hidden bg-white"
+              }
+            >
+              <img
+                src={certificate.previewSrc}
+                alt={`${certificate.label} certificate preview`}
+                className="h-full w-full object-cover object-top"
               />
             </div>
 
@@ -385,6 +416,264 @@ function GoalsBlock() {
   );
 }
 
+function TechnicalSkillsList({ small = false }: { small?: boolean }) {
+  return (
+    <ul
+      className={
+        small
+          ? "list-disc list-inside space-y-1 text-xs text-[#d1d5db]"
+          : "list-disc list-inside space-y-2 text-sm text-[#d1d5db]"
+      }
+    >
+      <li>Pro Tools Studio</li>
+      <li>Wwise Events, RTPCs, Switches &amp; Soundcaster</li>
+      <li>Reaper spatial / ambisonic workflows</li>
+      <li>Python acoustic calculation</li>
+      <li>Audio signal processing foundations</li>
+      <li>CSV / plotting / technical documentation</li>
+      <li>Foley, dialogue editing &amp; audio capture</li>
+      <li>Studio signal flow &amp; troubleshooting</li>
+      <li>Windows &amp; macOS</li>
+    </ul>
+  );
+}
+
+function KeySkillsList({ small = false }: { small?: boolean }) {
+  return (
+    <ul
+      className={
+        small
+          ? "list-disc list-inside space-y-1 text-xs text-[#d1d5db]"
+          : "list-disc list-inside space-y-2 text-sm text-[#d1d5db]"
+      }
+    >
+      <li>Sound design &amp; post-production</li>
+      <li>Mix automation &amp; stem preparation</li>
+      <li>Interactive audio systems</li>
+      <li>Spatial / immersive audio</li>
+      <li>Acoustics-led technical thinking</li>
+      <li>Technical troubleshooting</li>
+      <li>Portfolio documentation</li>
+      <li>International touring musician</li>
+      <li>Team collaboration</li>
+    </ul>
+  );
+}
+
+function CurrentDirectionList({ small = false }: { small?: boolean }) {
+  return (
+    <ul
+      className={
+        small
+          ? "list-disc list-inside space-y-1 text-xs text-[#d1d5db]"
+          : "list-disc list-inside space-y-2 text-sm text-[#d1d5db]"
+      }
+    >
+      <li>Acoustics / acoustic consultancy</li>
+      <li>Audio signal processing</li>
+      <li>Spatial audio / auralisation</li>
+      <li>Technical sound design</li>
+      <li>Game audio implementation</li>
+      <li>XR / immersive audio</li>
+      <li>Python audio tools</li>
+      <li>Software-facing audio roles</li>
+    </ul>
+  );
+}
+
+function EducationBlock({ full = false }: { full?: boolean }) {
+  const textClass = full ? "text-sm text-[#d7dfdf]" : "text-sm text-[#d1d5db]";
+
+  return (
+    <div
+      className={
+        full
+          ? "grid grid-cols-1 gap-6 text-sm text-[#d7dfdf] md:grid-cols-2"
+          : "space-y-3 text-sm text-[#d1d5db]"
+      }
+    >
+      <div className={full ? "" : "space-y-3"}>
+        <div>
+          <p className="font-semibold text-[#e5e7eb]">
+            BDes Sound for the Moving Image
+          </p>
+          <p className="text-[#9ca3af]">
+            Glasgow School of Art — completed undergraduate degree
+          </p>
+        </div>
+
+        <div>
+          <p className="font-semibold text-[#e5e7eb]">
+            HND Sound Production — Grade B
+          </p>
+          <p className="text-[#9ca3af]">Glasgow Clyde College</p>
+        </div>
+
+        <div>
+          <p className="font-semibold text-[#e5e7eb]">
+            Avid Pro Tools Certification
+          </p>
+          <p className="text-[#9ca3af]">
+            PT101, PT110 and PT130 completed; Avid Certified Pro Tools
+            Specialist and Avid Certified Pro Tools Game Audio Specialist
+            recorded as separate certification pathways/transcripts.
+          </p>
+        </div>
+
+        <div>
+          <p className="font-semibold text-[#e5e7eb]">
+            Audiokinetic Wwise Fundamentals / Wwise 101
+          </p>
+          <p className="text-[#9ca3af]">
+            Interactive audio and implementation fundamentals completed.
+          </p>
+        </div>
+      </div>
+
+      <div className={full ? "space-y-3" : "space-y-3"}>
+        <div>
+          <p className="font-semibold text-[#e5e7eb]">
+            IBM Python for Data Science, AI &amp; Development
+          </p>
+          <p className="text-[#9ca3af]">
+            In progress; supporting Python foundations, notebooks, data
+            handling, AI-adjacent workflows, and future technical audio
+            applications.
+          </p>
+        </div>
+
+        <div>
+          <p className="font-semibold text-[#e5e7eb]">
+            Coursera Audio Signal Processing for Music Applications
+          </p>
+          <p className="text-[#9ca3af]">
+            In progress; supporting DSP literacy, Python audio analysis,
+            acoustics interest, and audio-technology development.
+          </p>
+        </div>
+
+        <div>
+          <p className="font-semibold text-[#e5e7eb]">
+            SoloLearn Introduction to Python
+          </p>
+          <p className="text-[#9ca3af]">
+            Completed foundation certificate supporting basic Python syntax,
+            functions, data structures, and coding confidence.
+          </p>
+        </div>
+
+        <div>
+          <p className="font-semibold text-[#e5e7eb]">
+            Additional Programmes / Certifications
+          </p>
+          <p className="text-[#9ca3af]">
+            Strathclyde S@S Physics programme; Medics Against Violence
+            certification; HSK-1 Mandarin.
+          </p>
+        </div>
+
+        <div>
+          <p className="font-semibold text-[#e5e7eb]">Highers</p>
+          <p className="text-[#9ca3af]">
+            Music Technology A, English B, Maths B, Graphics B, Computing B,
+            Physics C, Physical Education B
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProfessionalExperienceBlock() {
+  return (
+    <div className="space-y-5 text-sm text-[#d1d5db]">
+      <div>
+        <h3 className="text-base font-semibold text-[#e5e7eb]">
+          Independent Audio Portfolio &amp; Technical Development —
+          Self-Directed / Informal Freelance
+        </h3>
+        <p className="italic text-[#9ca3af]">
+          2021 – Present · Glasgow / Remote
+        </p>
+        <ul className="mt-1 list-disc list-inside space-y-1">
+          <li>
+            Developed Pro Tools portfolio projects covering foley, dialogue
+            editing, ambience construction, routing, automation, plug-in
+            processing, stem preparation and final delivery.
+          </li>
+          <li>
+            Built Wwise interactive audio demonstrations using Events, RTPCs,
+            States, Switches, containers and Soundcaster testing.
+          </li>
+          <li>
+            Produced Reaper spatial / ambisonic audio work with binaural and
+            immersive portfolio deliverables.
+          </li>
+          <li>
+            Created a Python acoustic calculator for axial room-mode and RT60
+            estimation with table, CSV and plot output.
+          </li>
+          <li>
+            Continued technical study through Avid, Wwise, IBM Python, Coursera
+            Audio Signal Processing, SoloLearn Python foundations, and
+            audio-focused programming preparation.
+          </li>
+        </ul>
+        <p className="mt-2 text-xs text-[#9ca3af]">
+          Note: no formal paid employment held since August 2021; this period
+          has focused on independent portfolio development, certification and
+          technical study.
+        </p>
+      </div>
+
+      <div>
+        <h3 className="text-base font-semibold text-[#e5e7eb]">
+          Customer Service Assistant — Toolstation
+        </h3>
+        <p className="italic text-[#9ca3af]">May 2020 – August 2021</p>
+        <ul className="mt-1 list-disc list-inside space-y-1">
+          <li>Delivered customer support across trade tools and equipment.</li>
+          <li>
+            Managed stock control, warehouse organisation and inventory checks.
+          </li>
+          <li>Processed returns, deliveries and secure cash operations.</li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 className="text-base font-semibold text-[#e5e7eb]">
+          Touring Guitarist — Clawhammer
+        </h3>
+        <p className="italic text-[#9ca3af]">2017 – 2019</p>
+        <ul className="mt-1 list-disc list-inside space-y-1">
+          <li>
+            Performed internationally and collaborated with live sound teams in
+            high-pressure performance environments.
+          </li>
+          <li>
+            Developed stagecraft, reliability, timing, communication and
+            professional preparation.
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 className="text-base font-semibold text-[#e5e7eb]">
+          Bartender / Events Assistant — OVO Hydro &amp; SEC
+        </h3>
+        <p className="italic text-[#9ca3af]">July 2019 – February 2020</p>
+      </div>
+
+      <div>
+        <h3 className="text-base font-semibold text-[#e5e7eb]">
+          Guitar Tutor — Freelance
+        </h3>
+        <p className="italic text-[#9ca3af]">2016 – 2018</p>
+      </div>
+    </div>
+  );
+}
+
 function SidebarCV() {
   return (
     <div className="relative z-10 flex w-full max-w-7xl overflow-hidden rounded-3xl border border-[#22f3b7]/25 bg-gradient-to-br from-[#020617]/95 via-[#020617] to-[#020617] shadow-[0_0_40px_rgba(34,243,183,0.28)]">
@@ -405,7 +694,7 @@ function SidebarCV() {
             Certificates
           </h2>
           <div className="h-px w-16 rounded-full bg-gradient-to-r from-[#22f3b7] via-[#38bdf8] to-transparent" />
-          <CertificateGrid />
+          <CertificateGrid compact />
         </div>
 
         <div className="space-y-3">
@@ -413,16 +702,7 @@ function SidebarCV() {
             Technical Skills
           </h2>
           <div className="h-px w-16 rounded-full bg-gradient-to-r from-[#22f3b7] via-[#a855f7] to-transparent" />
-          <ul className="list-disc list-inside space-y-1 text-xs text-[#d1d5db]">
-            <li>Pro Tools Studio</li>
-            <li>Wwise Events, RTPCs &amp; Soundcaster</li>
-            <li>Reaper spatial / ambisonic workflows</li>
-            <li>Python acoustic calculation</li>
-            <li>CSV / plotting / technical documentation</li>
-            <li>Foley, dialogue editing &amp; audio capture</li>
-            <li>Studio signal flow &amp; troubleshooting</li>
-            <li>Windows &amp; macOS</li>
-          </ul>
+          <TechnicalSkillsList small />
         </div>
 
         <div className="space-y-3">
@@ -430,16 +710,7 @@ function SidebarCV() {
             Key Skills
           </h2>
           <div className="h-px w-16 rounded-full bg-gradient-to-r from-[#22f3b7] via-[#38bdf8] to-transparent" />
-          <ul className="list-disc list-inside space-y-1 text-xs text-[#d1d5db]">
-            <li>Sound design &amp; post-production</li>
-            <li>Mix automation &amp; stem prep</li>
-            <li>Interactive audio systems</li>
-            <li>Spatial / immersive audio</li>
-            <li>Technical troubleshooting</li>
-            <li>Portfolio documentation</li>
-            <li>International touring musician</li>
-            <li>Team collaboration</li>
-          </ul>
+          <KeySkillsList small />
         </div>
 
         <div className="space-y-3">
@@ -447,16 +718,7 @@ function SidebarCV() {
             Current Direction
           </h2>
           <div className="h-px w-16 rounded-full bg-gradient-to-r from-[#22f3b7] via-[#a855f7] to-transparent" />
-          <ul className="list-disc list-inside space-y-1 text-xs text-[#d1d5db]">
-            <li>Acoustics / acoustic consultancy</li>
-            <li>Audio signal processing</li>
-            <li>Spatial audio / auralisation</li>
-            <li>Technical sound design</li>
-            <li>Game audio implementation</li>
-            <li>XR / immersive audio</li>
-            <li>Python audio tools</li>
-            <li>Software-facing audio roles</li>
-          </ul>
+          <CurrentDirectionList small />
         </div>
       </aside>
 
@@ -470,92 +732,7 @@ function SidebarCV() {
           <SectionTitle colour="purple">
             Education &amp; Certification
           </SectionTitle>
-          <div className="space-y-3 text-sm text-[#d1d5db]">
-            <div>
-              <p className="font-semibold text-[#e5e7eb]">
-                BDes Sound for the Moving Image
-              </p>
-              <p className="text-[#9ca3af]">
-                Glasgow School of Art — completed undergraduate degree
-              </p>
-            </div>
-
-            <div>
-              <p className="font-semibold text-[#e5e7eb]">
-                HND Sound Production — Grade B
-              </p>
-              <p className="text-[#9ca3af]">Glasgow Clyde College</p>
-            </div>
-
-            <div>
-              <p className="font-semibold text-[#e5e7eb]">
-                Avid Pro Tools Certification
-              </p>
-              <p className="text-[#9ca3af]">
-                PT101, PT110 and PT130 completed; Avid Certified Pro Tools
-                Specialist and Avid Certified Pro Tools Game Audio Specialist
-                recorded as separate certification pathways/transcripts.
-              </p>
-            </div>
-
-            <div>
-              <p className="font-semibold text-[#e5e7eb]">
-                Audiokinetic Wwise Fundamentals / Wwise 101
-              </p>
-              <p className="text-[#9ca3af]">
-                Interactive audio and implementation fundamentals completed.
-              </p>
-            </div>
-
-            <div>
-              <p className="font-semibold text-[#e5e7eb]">
-                IBM Python for Data Science, AI &amp; Development
-              </p>
-              <p className="text-[#9ca3af]">
-                In progress; supporting Python foundations, notebooks, data
-                handling, AI-adjacent workflows, and future technical audio
-                applications.
-              </p>
-            </div>
-
-            <div>
-              <p className="font-semibold text-[#e5e7eb]">
-                Coursera Audio Signal Processing for Music Applications
-              </p>
-              <p className="text-[#9ca3af]">
-                In progress; supporting DSP literacy, Python audio analysis,
-                acoustics interest, and audio-technology development.
-              </p>
-            </div>
-
-            <div>
-              <p className="font-semibold text-[#e5e7eb]">
-                SoloLearn Introduction to Python
-              </p>
-              <p className="text-[#9ca3af]">
-                Completed foundation certificate supporting basic Python syntax,
-                functions, data structures, and coding confidence.
-              </p>
-            </div>
-
-            <div>
-              <p className="font-semibold text-[#e5e7eb]">
-                Additional Programmes / Certifications
-              </p>
-              <p className="text-[#9ca3af]">
-                Strathclyde S@S Physics programme; Medics Against Violence
-                certification; HSK-1 Mandarin.
-              </p>
-            </div>
-
-            <div>
-              <p className="font-semibold text-[#e5e7eb]">Highers</p>
-              <p className="text-[#9ca3af]">
-                Music Technology A, English B, Maths B, Graphics B, Computing B,
-                Physics C, Physical Education B
-              </p>
-            </div>
-          </div>
+          <EducationBlock />
         </section>
 
         <section className="space-y-4">
@@ -565,96 +742,7 @@ function SidebarCV() {
 
         <section className="space-y-4 pb-4">
           <SectionTitle colour="purple">Professional Experience</SectionTitle>
-          <div className="space-y-5 text-sm text-[#d1d5db]">
-            <div>
-              <h3 className="text-base font-semibold text-[#e5e7eb]">
-                Independent Audio Portfolio &amp; Technical Development —
-                Self-Directed / Informal Freelance
-              </h3>
-              <p className="italic text-[#9ca3af]">
-                2021 – Present · Glasgow / Remote
-              </p>
-              <ul className="mt-1 list-disc list-inside space-y-1">
-                <li>
-                  Developed Pro Tools portfolio projects covering foley,
-                  dialogue editing, ambience construction, routing, automation,
-                  plug-in processing, stem preparation and final delivery.
-                </li>
-                <li>
-                  Built Wwise interactive audio demonstrations using Events,
-                  RTPCs, States, Switches, containers and Soundcaster testing.
-                </li>
-                <li>
-                  Produced Reaper spatial / ambisonic audio work with binaural
-                  and immersive portfolio deliverables.
-                </li>
-                <li>
-                  Created a Python acoustic calculator for axial room-mode and
-                  RT60 estimation with table, CSV and plot output.
-                </li>
-                <li>
-                  Continued technical study through Avid, Wwise, IBM Python,
-                  Coursera Audio Signal Processing, SoloLearn Python
-                  foundations, and audio-focused programming preparation.
-                </li>
-              </ul>
-              <p className="mt-2 text-xs text-[#9ca3af]">
-                Note: no formal paid employment held since August 2021; this
-                period has focused on independent portfolio development,
-                certification and technical study.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-base font-semibold text-[#e5e7eb]">
-                Customer Service Assistant — Toolstation
-              </h3>
-              <p className="italic text-[#9ca3af]">May 2020 – August 2021</p>
-              <ul className="mt-1 list-disc list-inside space-y-1">
-                <li>
-                  Delivered customer support across trade tools and equipment.
-                </li>
-                <li>
-                  Managed stock control, warehouse organisation and inventory
-                  checks.
-                </li>
-                <li>
-                  Processed returns, deliveries and secure cash operations.
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="text-base font-semibold text-[#e5e7eb]">
-                Touring Guitarist — Clawhammer
-              </h3>
-              <p className="italic text-[#9ca3af]">2017 – 2019</p>
-              <ul className="mt-1 list-disc list-inside space-y-1">
-                <li>
-                  Performed internationally and collaborated with live sound
-                  teams in high-pressure performance environments.
-                </li>
-                <li>
-                  Developed stagecraft, reliability, timing, communication and
-                  professional preparation.
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="text-base font-semibold text-[#e5e7eb]">
-                Bartender / Events Assistant — OVO Hydro &amp; SEC
-              </h3>
-              <p className="italic text-[#9ca3af]">July 2019 – February 2020</p>
-            </div>
-
-            <div>
-              <h3 className="text-base font-semibold text-[#e5e7eb]">
-                Guitar Tutor — Freelance
-              </h3>
-              <p className="italic text-[#9ca3af]">2016 – 2018</p>
-            </div>
-          </div>
+          <ProfessionalExperienceBlock />
         </section>
       </main>
     </div>
@@ -686,104 +774,36 @@ function FullCV() {
       </section>
 
       <section className="space-y-4">
-        <SectionTitle colour="purple">Key Skills</SectionTitle>
-        <div className="grid grid-cols-1 gap-6 text-sm text-[#d7dfdf] md:grid-cols-2">
-          <ul className="list-disc list-inside space-y-2">
-            <li>Audio engineering and sound design</li>
-            <li>Mixing, editing and stem preparation in Pro Tools</li>
-            <li>Foley, dialogue editing and multitrack recording</li>
-            <li>Interactive audio implementation concepts</li>
-            <li>Wwise Events, RTPCs, Switches and Soundcaster testing</li>
-            <li>Spatial audio, ambisonics and binaural workflows</li>
-            <li>Python audio / acoustic calculation</li>
-          </ul>
+        <SectionTitle colour="purple">Certificates</SectionTitle>
+        <CertificateGrid />
+      </section>
 
-          <ul className="list-disc list-inside space-y-2">
-            <li>Technical troubleshooting and file management</li>
-            <li>Digital asset organisation and documentation</li>
-            <li>Game modding and digital file systems</li>
-            <li>Music creation, performance and composition</li>
-            <li>International touring musician</li>
-            <li>Team collaboration and communication</li>
-            <li>Mandarin Chinese — HSK-2 developing</li>
-          </ul>
+      <section className="space-y-4">
+        <SectionTitle>Technical Skills</SectionTitle>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <TechnicalSkillsList />
+          <CurrentDirectionList />
         </div>
       </section>
 
       <section className="space-y-4">
-        <SectionTitle>Education &amp; Certification</SectionTitle>
-        <div className="grid grid-cols-1 gap-6 text-sm text-[#d7dfdf] md:grid-cols-2">
-          <ul className="list-disc list-inside space-y-2">
-            <li>
-              <strong>BDes Sound for the Moving Image</strong>
-              <br />
-              Glasgow School of Art — completed undergraduate degree
-            </li>
-            <li>
-              <strong>HND Sound Production</strong> — Grade B
-              <br />
-              Glasgow Clyde College
-            </li>
-            <li>
-              <strong>Avid Pro Tools Certification</strong>
-              <br />
-              PT101, PT110 and PT130 completed; Avid Certified Pro Tools
-              Specialist and Avid Certified Pro Tools Game Audio Specialist
-              recorded as separate certification pathways/transcripts.
-            </li>
-            <li>
-              <strong>Audiokinetic Wwise Fundamentals / Wwise 101</strong>
-              <br />
-              Interactive audio and implementation fundamentals completed.
-            </li>
-            <li>
-              <strong>SoloLearn Introduction to Python</strong>
-              <br />
-              Completed foundation certificate supporting basic Python syntax,
-              functions, data structures, and coding confidence.
-            </li>
-          </ul>
+        <SectionTitle colour="purple">Key Skills</SectionTitle>
+        <KeySkillsList />
+      </section>
 
-          <ul className="list-disc list-inside space-y-2">
-            <li>
-              <strong>IBM Python for Data Science, AI &amp; Development</strong>
-              <br />
-              In progress; supporting Python foundations, notebooks, data
-              handling, AI-adjacent workflows, and future technical audio
-              applications.
-            </li>
-            <li>
-              <strong>
-                Coursera Audio Signal Processing for Music Applications
-              </strong>
-              <br />
-              In progress; supporting DSP literacy, Python audio analysis,
-              acoustics interest, and audio-technology development.
-            </li>
-            <li>
-              <strong>Additional Programmes / Certifications</strong>
-              <br />
-              Strathclyde S@S Physics programme; Medics Against Violence
-              certification; HSK-1 Mandarin.
-            </li>
-            <li>
-              <strong>Advanced Higher</strong>
-              <br />
-              Music Technology — Full Credits Awarded; English C
-            </li>
-            <li>
-              <strong>Highers</strong>
-              <br />
-              Music Technology A, English B, Maths B, Graphics B, Computing B,
-              Physics C, Physical Education B
-            </li>
-          </ul>
-        </div>
+      <section className="space-y-4">
+        <SectionTitle>Education &amp; Certification</SectionTitle>
+        <EducationBlock full />
       </section>
 
       <section className="space-y-4">
         <SectionTitle colour="purple">Goals</SectionTitle>
         <GoalsBlock />
+      </section>
+
+      <section className="space-y-4">
+        <SectionTitle>Professional Experience</SectionTitle>
+        <ProfessionalExperienceBlock />
       </section>
     </div>
   );
