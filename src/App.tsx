@@ -11,24 +11,62 @@ import {
 
 type CVView = "sidebar" | "full";
 
+const asset = (path: string) =>
+  `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
+
+const pdfPreview = (path: string) =>
+  `${path}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`;
+
 const portfolioWebsiteUrl = "https://dongbuuwns.wixsite.com/nathancampbellav";
 const credlyUrl = "https://www.credly.com/users/nathan-campbell.a0bb7503";
 
-const badges = [
+const topBadges = [
   {
-    src: "/badges/avid-pro-tools-game-audio-specialist.png",
-    alt: "Avid Pro Tools Specialist and Pro Tools Game Audio Specialist certification badge",
+    imageSrc: asset("badges/avid-pro-tools-game-audio-specialist.png"),
+    certHref: asset("certificates/pro-tools-specialist-certifcate.pdf"),
+    alt: "Avid Pro Tools Specialist certification badge",
     label: "Pro Tools Specialist",
   },
   {
-    src: "/badges/wwise-101.png",
-    alt: "Audiokinetic Wwise 101 fundamentals badge",
+    imageSrc: asset("badges/wwise-101.png"),
+    certHref: asset("certificates/wwise-fundamentals-certificate.pdf"),
+    alt: "Audiokinetic Wwise 101 certification badge",
     label: "Wwise 101",
   },
   {
-    src: "/badges/sololearn-python-developer.png",
-    alt: "SoloLearn Python Developer certificate badge",
-    label: "Python Developer",
+    imageSrc: asset("badges/sololearn-introduction-to-python.png"),
+    certHref: asset(
+      "certificates/sololearn-introduction-to-python-certificate.pdf"
+    ),
+    alt: "SoloLearn Introduction to Python badge",
+    label: "Introduction to Python",
+  },
+];
+
+const certificates = [
+  {
+    certHref: asset("certificates/pro-tools-specialist-certifcate.pdf"),
+    label: "Pro Tools Specialist",
+    subtitle: "Avid certificate",
+  },
+  {
+    certHref: asset(
+      "certificates/pro-tools-game-audio-specialist-certification.pdf"
+    ),
+    label: "Pro Tools Game Audio Specialist",
+    subtitle: "Avid certificate",
+  },
+  {
+    certHref: asset("certificates/wwise-fundamentals-certificate.pdf"),
+    label: "Wwise Fundamentals",
+    subtitle: "Audiokinetic certificate",
+  },
+  {
+    certHref: asset(
+      "certificates/sololearn-introduction-to-python-certificate.pdf"
+    ),
+    label: "Introduction to Python",
+    subtitle: "SoloLearn certificate",
   },
 ];
 
@@ -40,26 +78,26 @@ function TopControls({
   setView: React.Dispatch<React.SetStateAction<CVView>>;
 }) {
   return (
-    <div className="relative z-20 w-full max-w-6xl mb-5 rounded-3xl border border-[#22f3b7]/25 bg-[#020617]/90 shadow-[0_0_30px_rgba(34,243,183,0.2)] p-5">
-      <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-        <div>
+    <div className="relative z-20 mb-5 w-full max-w-7xl rounded-3xl border border-[#22f3b7]/25 bg-[#020617]/90 p-5 shadow-[0_0_30px_rgba(34,243,183,0.2)]">
+      <div className="grid gap-5 xl:grid-cols-[1fr_auto] xl:items-start">
+        <div className="min-w-0">
           <p className="text-xs uppercase tracking-[0.24em] text-[#22f3b7]">
             Nathan Campbell
           </p>
           <h1 className="text-2xl font-extrabold text-[#e5e7eb]">
             Audio / Technical Sound CV
           </h1>
-          <p className="mt-1 text-sm text-[#9ca3af] max-w-2xl">
-            Select the CV layout, open the portfolio website, or view my
-            Credly profile.
+          <p className="mt-1 max-w-3xl text-sm text-[#9ca3af]">
+            Select the CV layout, open the portfolio website, view my Credly
+            profile, or click a badge to open its certificate.
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-2">
+        <div className="flex shrink-0 flex-nowrap items-center gap-2 overflow-x-auto pb-1">
           <button
             type="button"
             onClick={() => setView("sidebar")}
-            className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+            className={`whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition ${
               view === "sidebar"
                 ? "bg-[#22f3b7] text-[#020617]"
                 : "border border-[#22f3b7]/30 text-[#d1d5db] hover:bg-[#22f3b7]/10"
@@ -71,7 +109,7 @@ function TopControls({
           <button
             type="button"
             onClick={() => setView("full")}
-            className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+            className={`whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition ${
               view === "full"
                 ? "bg-[#22f3b7] text-[#020617]"
                 : "border border-[#22f3b7]/30 text-[#d1d5db] hover:bg-[#22f3b7]/10"
@@ -84,40 +122,46 @@ function TopControls({
             href={portfolioWebsiteUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-[#38bdf8]/40 px-4 py-2 text-sm font-semibold text-[#d1d5db] hover:bg-[#38bdf8]/10"
+            className="inline-flex whitespace-nowrap items-center gap-2 rounded-full border border-[#38bdf8]/40 px-4 py-2 text-sm font-semibold text-[#d1d5db] hover:bg-[#38bdf8]/10"
           >
-            Portfolio Website <ExternalLink className="h-4 w-4" />
+            Portfolio <ExternalLink className="h-4 w-4" />
           </a>
 
           <a
             href={credlyUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-[#a855f7]/40 px-4 py-2 text-sm font-semibold text-[#d1d5db] hover:bg-[#a855f7]/10"
+            className="inline-flex whitespace-nowrap items-center gap-2 rounded-full border border-[#a855f7]/40 px-4 py-2 text-sm font-semibold text-[#d1d5db] hover:bg-[#a855f7]/10"
           >
-            View Credly <FileText className="h-4 w-4" />
+            Credly <FileText className="h-4 w-4" />
           </a>
         </div>
       </div>
 
       <div className="mt-5 flex flex-wrap items-center gap-4 border-t border-[#1f2937] pt-4">
-        {badges.map((badge) => (
-          <div
+        {topBadges.map((badge) => (
+          <a
             key={badge.label}
-            className="flex items-center gap-3 rounded-2xl border border-[#1f2937] bg-[#020617]/70 px-3 py-2"
+            href={badge.certHref}
+            target="_blank"
+            rel="noreferrer"
+            className="flex min-w-[210px] items-center gap-3 rounded-2xl border border-[#1f2937] bg-[#020617]/70 px-3 py-2 transition hover:border-[#22f3b7]/50 hover:bg-[#22f3b7]/5"
           >
-            <img
-              src={badge.src}
-              alt={badge.alt}
-              className="h-12 w-12 object-contain"
-            />
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg">
+              <img
+                src={badge.imageSrc}
+                alt={badge.alt}
+                className="max-h-12 max-w-12 object-contain"
+              />
+            </div>
+
             <div>
               <p className="text-xs font-semibold text-[#e5e7eb]">
                 {badge.label}
               </p>
               <p className="text-[11px] text-[#9ca3af]">Certification badge</p>
             </div>
-          </div>
+          </a>
         ))}
       </div>
     </div>
@@ -152,14 +196,17 @@ function ContactBlock() {
         <MapPin className="h-4 w-4 text-[#22f3b7]" />
         <span>Glasgow, UK</span>
       </div>
+
       <div className="flex items-center gap-2">
         <Mail className="h-4 w-4 text-[#22f3b7]" />
         <span>dongbuuwns@gmail.com</span>
       </div>
+
       <div className="flex items-center gap-2">
         <Phone className="h-4 w-4 text-[#22f3b7]" />
         <span>07754598513</span>
       </div>
+
       <div className="flex items-center gap-2">
         <Globe2 className="h-4 w-4 text-[#22f3b7]" />
         <span>Mandarin learner — HSK-1 / HSK-2 developing</span>
@@ -168,20 +215,62 @@ function ContactBlock() {
   );
 }
 
+function CertificateGrid() {
+  return (
+    <div className="grid grid-cols-1 gap-4">
+      {certificates.map((certificate) => (
+        <div
+          key={certificate.label}
+          className="group overflow-hidden rounded-2xl border border-[#1f2937] bg-[#020617]/60 transition hover:border-[#22f3b7]/50 hover:bg-[#22f3b7]/5"
+        >
+          <a
+            href={certificate.certHref}
+            target="_blank"
+            rel="noreferrer"
+            className="block"
+          >
+            <div className="h-36 w-full overflow-hidden bg-white">
+              <iframe
+                src={pdfPreview(certificate.certHref)}
+                title={certificate.label}
+                className="h-[320px] w-full origin-top scale-[0.48] border-0"
+              />
+            </div>
+
+            <div className="p-3">
+              <p className="text-[11px] font-semibold leading-tight text-[#e5e7eb] group-hover:text-[#22f3b7]">
+                {certificate.label}
+              </p>
+              <p className="mt-0.5 text-[10px] text-[#9ca3af]">
+                {certificate.subtitle}
+              </p>
+            </div>
+          </a>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function BadgeMiniRow() {
   return (
     <div className="flex flex-wrap gap-3">
-      {badges.map((badge) => (
-        <div
+      {topBadges.map((badge) => (
+        <a
           key={badge.label}
-          className="rounded-2xl border border-[#1f2937] bg-[#020617]/60 p-2"
+          href={badge.certHref}
+          target="_blank"
+          rel="noreferrer"
+          className="rounded-2xl border border-[#1f2937] bg-[#020617]/60 p-2 transition hover:border-[#22f3b7]/50 hover:bg-[#22f3b7]/5"
         >
-          <img
-            src={badge.src}
-            alt={badge.alt}
-            className="h-16 w-16 object-contain"
-          />
-        </div>
+          <div className="flex h-16 w-16 items-center justify-center">
+            <img
+              src={badge.imageSrc}
+              alt={badge.alt}
+              className="max-h-14 max-w-full object-contain"
+            />
+          </div>
+        </a>
       ))}
     </div>
   );
@@ -199,28 +288,32 @@ function ProfileText() {
         spatial audio, Python-based audio tools, acoustics, audio signal
         processing, and audiovisual systems thinking.
       </p>
+
       <p>
         Recent self-directed work includes Pro Tools sound redesign and
         post-production projects, a Wwise 101-informed adaptive radio prototype,
         Reaper ambisonic/binaural spatial audio work, and a Python acoustic
-        calculator for axial room-mode and RT60 estimation. These projects have
-        pushed my interest toward practical acoustics, DSP literacy, audio
-        analysis, implementation workflows, and software-supported sound design.
+        calculator for axial room-mode and RT60 estimation. These projects
+        connect practical acoustics, DSP literacy, audio analysis,
+        implementation, and portfolio-led sound design development.
       </p>
+
       <p>
         I am currently strengthening my programming and audio-technology
         foundation through IBM&apos;s Python for Data Science, AI &amp;
         Development and Coursera&apos;s Audio Signal Processing for Music
-        Applications, with SoloLearn Python Developer kept as an additional
-        foundational certificate. Longer term, I am interested in expanding into
-        a broader software engineering certificate pathway where it supports
-        audio tools, acoustics, interactive audio, and technical sound design.
+        Applications, with SoloLearn Introduction to Python kept as an
+        additional foundation certificate. I am also interested in building
+        enough software engineering knowledge to support audio tools,
+        measurement workflows, signal processing, and software-facing audio
+        roles.
       </p>
+
       <p>
-        My certification record also includes Audiokinetic Wwise 101 and Avid
-        Pro Tools credentials across separate Pro Tools Specialist and Pro Tools
-        Game Audio Specialist pathways, supporting both post-production workflow
-        and game-audio implementation practice.
+        My certification record also includes PT101, PT110, PT130, Audiokinetic
+        Wwise Fundamentals, Avid Certified Pro Tools Specialist, and Avid
+        Certified Pro Tools Game Audio Specialist pathways, supporting both
+        post-production workflow and game-audio implementation practice.
       </p>
     </div>
   );
@@ -228,24 +321,42 @@ function ProfileText() {
 
 function GoalsBlock() {
   return (
-    <div className="space-y-2 text-sm text-[#d1d5db]">
+    <div className="space-y-3 text-sm text-[#d1d5db]">
       <p className="flex gap-2">
         <BadgeCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#22f3b7]" />
-        Develop stronger technical sound design work across Pro Tools, Wwise
-        101 workflows, Reaper spatial audio, acoustics, audio signal processing,
-        and Python-based audio tooling.
+        Develop toward high-level acoustics and audio-technology pathways,
+        including acoustic consultancy, building and room acoustics, sound
+        system design, environmental noise awareness, and technical audio
+        problem solving.
       </p>
+
       <p className="flex gap-2">
         <BadgeCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#22f3b7]" />
-        Build portfolio projects that connect sound design, game audio
-        implementation, XR/immersive audio, UX/product sound, acoustic analysis,
-        DSP concepts, and practical software-supported audio workflows.
+        Strengthen audio signal processing, Python-based audio analysis,
+        measurement-led workflows, numerical reasoning, and technical
+        documentation for acoustics, sound design, and music-technology
+        applications.
       </p>
+
       <p className="flex gap-2">
         <BadgeCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#22f3b7]" />
-        Progress from IBM Python, audio signal processing, and portfolio-led
-        acoustic tools toward broader software engineering study where it
-        supports audio-focused technical roles.
+        Build toward spatial audio, immersive sound, auralisation, game audio
+        implementation, and interactive audio systems while keeping acoustics
+        and psychoacoustics as central technical interests.
+      </p>
+
+      <p className="flex gap-2">
+        <BadgeCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#22f3b7]" />
+        Prepare for research-facing and postgraduate audio pathways by improving
+        analytical listening, modelling, signal flow, programming, project
+        management, report writing, and evidence-based technical practice.
+      </p>
+
+      <p className="flex gap-2">
+        <BadgeCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#22f3b7]" />
+        Keep a light but useful software engineering direction in view, mainly
+        where it supports audio tools, DSP learning, acoustic calculators,
+        automation scripts, and software-facing audio roles.
       </p>
     </div>
   );
@@ -253,7 +364,7 @@ function GoalsBlock() {
 
 function SidebarCV() {
   return (
-    <div className="relative z-10 flex w-full max-w-6xl overflow-hidden rounded-3xl border border-[#22f3b7]/25 bg-gradient-to-br from-[#020617]/95 via-[#020617] to-[#020617] shadow-[0_0_40px_rgba(34,243,183,0.28)]">
+    <div className="relative z-10 flex w-full max-w-7xl overflow-hidden rounded-3xl border border-[#22f3b7]/25 bg-gradient-to-br from-[#020617]/95 via-[#020617] to-[#020617] shadow-[0_0_40px_rgba(34,243,183,0.28)]">
       <aside className="w-1/3 max-w-sm bg-[#020617]/80 p-8 space-y-9 border-r border-[#1f2937]">
         <div className="space-y-2">
           <h1 className="text-3xl font-extrabold tracking-tight text-[#8de3d1]">
@@ -268,10 +379,10 @@ function SidebarCV() {
 
         <div className="space-y-3">
           <h2 className="text-sm font-semibold tracking-wide text-[#e5e7eb]">
-            Certification Badges
+            Certificates
           </h2>
           <div className="h-px w-16 rounded-full bg-gradient-to-r from-[#22f3b7] via-[#38bdf8] to-transparent" />
-          <BadgeMiniRow />
+          <CertificateGrid />
         </div>
 
         <div className="space-y-3">
@@ -281,13 +392,13 @@ function SidebarCV() {
           <div className="h-px w-16 rounded-full bg-gradient-to-r from-[#22f3b7] via-[#a855f7] to-transparent" />
           <ul className="list-disc list-inside space-y-1 text-xs text-[#d1d5db]">
             <li>Pro Tools Studio</li>
-            <li>Wwise Events, RTPCs & Soundcaster</li>
+            <li>Wwise Events, RTPCs &amp; Soundcaster</li>
             <li>Reaper spatial / ambisonic workflows</li>
             <li>Python acoustic calculation</li>
             <li>CSV / plotting / technical documentation</li>
-            <li>Foley, dialogue editing & audio capture</li>
-            <li>Studio signal flow & troubleshooting</li>
-            <li>Windows & macOS</li>
+            <li>Foley, dialogue editing &amp; audio capture</li>
+            <li>Studio signal flow &amp; troubleshooting</li>
+            <li>Windows &amp; macOS</li>
           </ul>
         </div>
 
@@ -297,8 +408,8 @@ function SidebarCV() {
           </h2>
           <div className="h-px w-16 rounded-full bg-gradient-to-r from-[#22f3b7] via-[#38bdf8] to-transparent" />
           <ul className="list-disc list-inside space-y-1 text-xs text-[#d1d5db]">
-            <li>Sound design & post-production</li>
-            <li>Mix automation & stem prep</li>
+            <li>Sound design &amp; post-production</li>
+            <li>Mix automation &amp; stem prep</li>
             <li>Interactive audio systems</li>
             <li>Spatial / immersive audio</li>
             <li>Technical troubleshooting</li>
@@ -314,11 +425,14 @@ function SidebarCV() {
           </h2>
           <div className="h-px w-16 rounded-full bg-gradient-to-r from-[#22f3b7] via-[#a855f7] to-transparent" />
           <ul className="list-disc list-inside space-y-1 text-xs text-[#d1d5db]">
+            <li>Acoustics / acoustic consultancy</li>
+            <li>Audio signal processing</li>
+            <li>Spatial audio / auralisation</li>
             <li>Technical sound design</li>
             <li>Game audio implementation</li>
-            <li>Acoustics & audio signal processing</li>
+            <li>XR / immersive audio</li>
             <li>Python audio tools</li>
-            <li>Software engineering foundations</li>
+            <li>Software-facing audio roles</li>
           </ul>
         </div>
       </aside>
@@ -330,7 +444,9 @@ function SidebarCV() {
         </section>
 
         <section className="space-y-4">
-          <SectionTitle colour="purple">Education & Certification</SectionTitle>
+          <SectionTitle colour="purple">
+            Education &amp; Certification
+          </SectionTitle>
           <div className="space-y-3 text-sm text-[#d1d5db]">
             <div>
               <p className="font-semibold text-[#e5e7eb]">
@@ -353,38 +469,59 @@ function SidebarCV() {
                 Avid Pro Tools Certification
               </p>
               <p className="text-[#9ca3af]">
-                PT101 and PT110 completed; Avid Certified Pro Tools
+                PT101, PT110 and PT130 completed; Avid Certified Pro Tools
                 Specialist and Avid Certified Pro Tools Game Audio Specialist
-                recorded as separate Credly transcripts / certification pathways
+                recorded as separate certification pathways/transcripts.
               </p>
             </div>
 
             <div>
               <p className="font-semibold text-[#e5e7eb]">
-                Audiokinetic Wwise 101
+                Audiokinetic Wwise Fundamentals / Wwise 101
               </p>
               <p className="text-[#9ca3af]">
-                Interactive audio and implementation fundamentals completed
+                Interactive audio and implementation fundamentals completed.
               </p>
             </div>
 
             <div>
               <p className="font-semibold text-[#e5e7eb]">
-                SoloLearn Python Developer
+                IBM Python for Data Science, AI &amp; Development
               </p>
               <p className="text-[#9ca3af]">
-                Python Developer certificate completed
+                In progress; supporting Python foundations, notebooks, data
+                handling, AI-adjacent workflows, and future technical audio
+                applications.
               </p>
             </div>
 
             <div>
               <p className="font-semibold text-[#e5e7eb]">
-                Coursera / IBM Python Learning
+                Coursera Audio Signal Processing for Music Applications
               </p>
               <p className="text-[#9ca3af]">
-                IBM Python for Data Science, AI &amp; Development and
-                Coursera Audio Signal Processing for Music Applications in
-                progress
+                In progress; supporting DSP literacy, Python audio analysis,
+                acoustics interest, and audio-technology development.
+              </p>
+            </div>
+
+            <div>
+              <p className="font-semibold text-[#e5e7eb]">
+                SoloLearn Introduction to Python
+              </p>
+              <p className="text-[#9ca3af]">
+                Completed foundation certificate supporting basic Python syntax,
+                functions, data structures, and coding confidence.
+              </p>
+            </div>
+
+            <div>
+              <p className="font-semibold text-[#e5e7eb]">
+                Additional Programmes / Certifications
+              </p>
+              <p className="text-[#9ca3af]">
+                Strathclyde S@S Physics programme; Medics Against Violence
+                certification; HSK-1 Mandarin.
               </p>
             </div>
 
@@ -399,30 +536,6 @@ function SidebarCV() {
         </section>
 
         <section className="space-y-4">
-          <SectionTitle>Portfolio / Technical Project Focus</SectionTitle>
-          <ul className="list-disc list-inside space-y-2 text-sm text-[#d1d5db]">
-            <li>
-              Pro Tools film sound redesign work covering foley, dialogue,
-              ambience, SFX, routing, automation, stem printing and final
-              bounce.
-            </li>
-            <li>
-              Wwise adaptive radio prototype using Events, Switches, RTPCs,
-              containers and Soundcaster testing.
-            </li>
-            <li>
-              Reaper spatial audio project using ambisonic / binaural workflow
-              and environmental sound placement.
-            </li>
-            <li>
-              Python acoustic calculator for CAD room study, calculating axial
-              modes and RT60 with table, CSV and plot output.
-            </li>
-          </ul>
-        </section>
-
-
-        <section className="space-y-4">
           <SectionTitle>Goals</SectionTitle>
           <GoalsBlock />
         </section>
@@ -432,7 +545,7 @@ function SidebarCV() {
           <div className="space-y-5 text-sm text-[#d1d5db]">
             <div>
               <h3 className="text-base font-semibold text-[#e5e7eb]">
-                Independent Audio Portfolio & Technical Development —
+                Independent Audio Portfolio &amp; Technical Development —
                 Self-Directed / Informal Freelance
               </h3>
               <p className="italic text-[#9ca3af]">
@@ -457,10 +570,9 @@ function SidebarCV() {
                   RT60 estimation with table, CSV and plot output.
                 </li>
                 <li>
-                  Continued technical study through Avid Pro Tools, Wwise
-                  101, IBM Python for Data Science, AI &amp; Development,
-                  Coursera Audio Signal Processing for Music Applications and
-                  SoloLearn Python Developer.
+                  Continued technical study through Avid, Wwise, IBM Python,
+                  Coursera Audio Signal Processing, SoloLearn Python
+                  foundations, and audio-focused programming preparation.
                 </li>
               </ul>
               <p className="mt-2 text-xs text-[#9ca3af]">
@@ -508,7 +620,7 @@ function SidebarCV() {
 
             <div>
               <h3 className="text-base font-semibold text-[#e5e7eb]">
-                Bartender / Events Assistant — OVO Hydro & SEC
+                Bartender / Events Assistant — OVO Hydro &amp; SEC
               </h3>
               <p className="italic text-[#9ca3af]">July 2019 – February 2020</p>
             </div>
@@ -528,7 +640,7 @@ function SidebarCV() {
 
 function FullCV() {
   return (
-    <div className="relative z-10 w-full max-w-6xl rounded-3xl border border-[#22f3b7]/25 bg-gradient-to-br from-[#020617]/95 via-[#020617] to-[#020617] shadow-[0_0_40px_rgba(34,243,183,0.28)] px-10 py-10 space-y-10">
+    <div className="relative z-10 w-full max-w-7xl rounded-3xl border border-[#22f3b7]/25 bg-gradient-to-br from-[#020617]/95 via-[#020617] to-[#020617] px-10 py-10 shadow-[0_0_40px_rgba(34,243,183,0.28)] space-y-10">
       <header className="flex flex-col gap-6 border-b border-[#1f2937] pb-6 md:flex-row md:items-start md:justify-between">
         <div className="space-y-3">
           <div>
@@ -576,7 +688,7 @@ function FullCV() {
       </section>
 
       <section className="space-y-4">
-        <SectionTitle>Education & Certification</SectionTitle>
+        <SectionTitle>Education &amp; Certification</SectionTitle>
         <div className="grid grid-cols-1 gap-6 text-sm text-[#d7dfdf] md:grid-cols-2">
           <ul className="list-disc list-inside space-y-2">
             <li>
@@ -592,33 +704,44 @@ function FullCV() {
             <li>
               <strong>Avid Pro Tools Certification</strong>
               <br />
-              PT101 and PT110 completed; Avid Certified Pro Tools
+              PT101, PT110 and PT130 completed; Avid Certified Pro Tools
               Specialist and Avid Certified Pro Tools Game Audio Specialist
-              recorded as separate Credly transcripts / certification pathways
+              recorded as separate certification pathways/transcripts.
             </li>
             <li>
-              <strong>Audiokinetic Wwise 101</strong>
+              <strong>Audiokinetic Wwise Fundamentals / Wwise 101</strong>
               <br />
-              Interactive audio and implementation fundamentals completed
+              Interactive audio and implementation fundamentals completed.
             </li>
             <li>
-              <strong>SoloLearn Python Developer</strong>
+              <strong>SoloLearn Introduction to Python</strong>
               <br />
-              Python Developer certificate completed
+              Completed foundation certificate supporting basic Python syntax,
+              functions, data structures, and coding confidence.
             </li>
           </ul>
 
           <ul className="list-disc list-inside space-y-2">
             <li>
-              <strong>Coursera Audio Signal Processing for Music Applications</strong>
-              <br />
-              Ongoing DSP, spectral processing and Python audio learning
-            </li>
-            <li>
               <strong>IBM Python for Data Science, AI &amp; Development</strong>
               <br />
-              Ongoing Python foundations, notebooks, data handling and
-              AI-adjacent technical workflow learning
+              In progress; supporting Python foundations, notebooks, data
+              handling, AI-adjacent workflows, and future technical audio
+              applications.
+            </li>
+            <li>
+              <strong>
+                Coursera Audio Signal Processing for Music Applications
+              </strong>
+              <br />
+              In progress; supporting DSP literacy, Python audio analysis,
+              acoustics interest, and audio-technology development.
+            </li>
+            <li>
+              <strong>Additional Programmes / Certifications</strong>
+              <br />
+              Strathclyde S@S Physics programme; Medics Against Violence
+              certification; HSK-1 Mandarin.
             </li>
             <li>
               <strong>Advanced Higher</strong>
@@ -631,187 +754,13 @@ function FullCV() {
               Music Technology A, English B, Maths B, Graphics B, Computing B,
               Physics C, Physical Education B
             </li>
-            <li>
-              <strong>Other Certifications</strong>
-              <br />
-              HSK-1 Mandarin, Medics Against Violence, Strathclyde S@S Physics
-            </li>
           </ul>
         </div>
       </section>
 
       <section className="space-y-4">
-        <SectionTitle colour="purple">
-          Portfolio / Technical Project Focus
-        </SectionTitle>
-        <div className="grid grid-cols-1 gap-5 text-sm text-[#d1d5db] md:grid-cols-2">
-          <div className="rounded-2xl border border-[#1f2937] bg-[#020617]/60 p-4">
-            <h3 className="font-semibold text-[#e5e7eb]">
-              Pro Tools Sound Redesign
-            </h3>
-            <p className="mt-1 text-[#9ca3af]">
-              Foley, dialogue editing, ambience, SFX layering, routing folders,
-              aux sends, automation, plug-in processing, stem printing and final
-              bounce delivery.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-[#1f2937] bg-[#020617]/60 p-4">
-            <h3 className="font-semibold text-[#e5e7eb]">
-              Wwise Adaptive Radio
-            </h3>
-            <p className="mt-1 text-[#9ca3af]">
-              Wwise-only Soundcaster demo using Events, RTPCs, Switches,
-              containers, interference control and adaptive radio behaviour.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-[#1f2937] bg-[#020617]/60 p-4">
-            <h3 className="font-semibold text-[#e5e7eb]">
-              Ambisonic / Binaural Spatial Audio
-            </h3>
-            <p className="mt-1 text-[#9ca3af]">
-              Reaper spatial workflow using ambisonic routing, binaural
-              rendering and environmental sound placement for immersive
-              audiovisual presentation.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-[#1f2937] bg-[#020617]/60 p-4">
-            <h3 className="font-semibold text-[#e5e7eb]">
-              Python CAD Acoustic Tool
-            </h3>
-            <p className="mt-1 text-[#9ca3af]">
-              Simple Python calculator for room dimensions, axial room modes,
-              RT60 estimation, CSV export and plotted acoustic results.
-            </p>
-          </div>
-        </div>
-      </section>
-
-
-      <section className="space-y-4">
         <SectionTitle colour="purple">Goals</SectionTitle>
         <GoalsBlock />
-      </section>
-
-      <section className="space-y-4 pb-2">
-        <SectionTitle>Professional Experience</SectionTitle>
-        <div className="space-y-5 text-sm text-[#d1d5db]">
-          <div>
-            <h3 className="text-base font-semibold text-[#e5e7eb]">
-              Independent Audio Portfolio & Technical Development —
-              Self-Directed / Informal Freelance
-            </h3>
-            <p className="italic text-[#9ca3af]">
-              2021 – Present · Glasgow / Remote
-            </p>
-            <ul className="mt-1 list-disc list-inside space-y-1">
-              <li>
-                Developed sound design and post-production portfolio projects
-                using Pro Tools, including foley, dialogue editing, ambience
-                construction, routing, automation, plug-in processing, stem
-                preparation and final bounce delivery.
-              </li>
-              <li>
-                Built Wwise interactive audio demonstrations using Events,
-                RTPCs, States, Switches, containers and Soundcaster testing.
-              </li>
-              <li>
-                Produced spatial and immersive audio work in Reaper, including
-                ambisonic / binaural routing, environmental sound placement and
-                rendered portfolio deliverables.
-              </li>
-              <li>
-                Created a Python-based acoustic calculator for a CAD spatial
-                audio reproduction room study, estimating axial room modes and
-                RT60 while exporting tables, CSV data and plotted results.
-              </li>
-              <li>
-                Continued technical study through Avid Pro Tools, Wwise 101,
-                IBM Python for Data Science, AI &amp; Development, Coursera
-                Audio Signal Processing for Music Applications and SoloLearn
-                Python Developer.
-              </li>
-              <li>
-                Provided small-scale informal audio support for media projects
-                where required.
-              </li>
-            </ul>
-            <p className="mt-2 text-xs text-[#9ca3af]">
-              Note: no formal paid employment held since August 2021; this
-              period has focused on independent portfolio development,
-              certification and technical study.
-            </p>
-          </div>
-
-          <div>
-            <h3 className="text-base font-semibold text-[#e5e7eb]">
-              Customer Service Assistant — Toolstation
-            </h3>
-            <p className="italic text-[#9ca3af]">May 2020 – August 2021</p>
-            <ul className="mt-1 list-disc list-inside space-y-1">
-              <li>
-                Provided customer support across trade tools and equipment.
-              </li>
-              <li>
-                Performed stock control, inventory checks and warehouse
-                organisation.
-              </li>
-              <li>Processed deliveries, returns and secure cash-handling.</li>
-              <li>Maintained safe, clean and efficient store operations.</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-base font-semibold text-[#e5e7eb]">
-              Bartender / Events Assistant — OVO Hydro & SEC
-            </h3>
-            <p className="italic text-[#9ca3af]">July 2019 – February 2020</p>
-            <ul className="mt-1 list-disc list-inside space-y-1">
-              <li>
-                Worked across bar, stewarding and kitchen roles during major
-                events.
-              </li>
-              <li>Adapted to fast-paced, high-volume live environments.</li>
-              <li>Supported venue safety and event logistics teams.</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-base font-semibold text-[#e5e7eb]">
-              Guitar Tutor — Freelance
-            </h3>
-            <p className="italic text-[#9ca3af]">2016 – 2018</p>
-            <ul className="mt-1 list-disc list-inside space-y-1">
-              <li>
-                Taught technique, rhythm, performance and theory to beginner and
-                intermediate students.
-              </li>
-              <li>Designed structured lesson plans and practice routines.</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-base font-semibold text-[#e5e7eb]">
-              Touring Guitarist — Clawhammer
-            </h3>
-            <p className="italic text-[#9ca3af]">2017 – 2019</p>
-            <ul className="mt-1 list-disc list-inside space-y-1">
-              <li>
-                Performed internationally supporting established heavy bands.
-              </li>
-              <li>
-                Collaborated with FOH and monitor engineers to optimise tone and
-                stage sound.
-              </li>
-              <li>
-                Developed stagecraft, reliability and adaptability in
-                high-pressure live settings.
-              </li>
-            </ul>
-          </div>
-        </div>
       </section>
     </div>
   );
