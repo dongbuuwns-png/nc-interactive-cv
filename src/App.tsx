@@ -482,8 +482,6 @@ function CurrentDirectionList({ small = false }: { small?: boolean }) {
 }
 
 function EducationBlock({ full = false }: { full?: boolean }) {
-  const textClass = full ? "text-sm text-[#d7dfdf]" : "text-sm text-[#d1d5db]";
-
   return (
     <div
       className={
@@ -492,7 +490,7 @@ function EducationBlock({ full = false }: { full?: boolean }) {
           : "space-y-3 text-sm text-[#d1d5db]"
       }
     >
-      <div className={full ? "" : "space-y-3"}>
+      <div className="space-y-3">
         <div>
           <p className="font-semibold text-[#e5e7eb]">
             BDes Sound for the Moving Image
@@ -530,7 +528,7 @@ function EducationBlock({ full = false }: { full?: boolean }) {
         </div>
       </div>
 
-      <div className={full ? "space-y-3" : "space-y-3"}>
+      <div className="space-y-3">
         <div>
           <p className="font-semibold text-[#e5e7eb]">
             IBM Python for Data Science, AI &amp; Development
@@ -823,4 +821,3 @@ export default function App() {
     </div>
   );
 }
-q;
