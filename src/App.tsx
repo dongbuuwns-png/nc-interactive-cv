@@ -20,7 +20,7 @@ const pdfPreview = (path: string) =>
 
 const portfolioWebsiteUrl = "https://dongbuuwns.wixsite.com/nathancampbellav";
 const credlyUrl = "https://www.credly.com/users/nathan-campbell.a0bb7503";
-const githubUrl = "https://github.com/dongbuuwns-png";
+const githubUrl = "https://github.com/dongbuuwns-png/nc-interactive-cv";
 
 const topBadges = [
   {
@@ -91,7 +91,7 @@ function TopControls({
           </h1>
           <p className="mt-1 max-w-3xl text-sm text-[#9ca3af]">
             Select the CV layout, open the portfolio website, view my Credly
-            profile, open my GitHub profile, or click a badge to open its
+            profile, open my GitHub repository, or click a badge to open its
             certificate.
           </p>
         </div>
@@ -226,7 +226,7 @@ function ContactBlock() {
         className="flex items-center gap-2 hover:text-[#22f3b7]"
       >
         <Github className="h-4 w-4 text-[#22f3b7]" />
-        <span>GitHub profile</span>
+        <span>GitHub repository</span>
       </a>
 
       <div className="flex items-center gap-2">
