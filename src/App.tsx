@@ -43,16 +43,14 @@ const topBadges: BadgeItem[] = [
   {
     imageSrc: asset("badges/wwise-101.png"),
     certHref: asset("certificates/wwise-fundamentals-certificate.pdf"),
-    alt: "Audiokinetic Wwise 101 certification badge",
+    alt: "Audiokinetic Wwise Fundamentals certification badge",
     label: "Wwise 101",
   },
   {
-    imageSrc: asset("badges/sololearn-introduction-to-python.png"),
-    certHref: asset(
-      "certificates/sololearn-introduction-to-python-certificate.pdf"
-    ),
-    alt: "SoloLearn Introduction to Python badge",
-    label: "Introduction to Python",
+    imageSrc: asset("badges/sololearn-python-developer.png"),
+    certHref: asset("certificates/sololearn-python-developer-certificate.pdf"),
+    alt: "SoloLearn Python Developer certification badge",
+    label: "Python Developer",
   },
 ];
 
@@ -80,13 +78,9 @@ const certificates: CertificateItem[] = [
     subtitle: "Audiokinetic certificate",
   },
   {
-    certHref: asset(
-      "certificates/sololearn-introduction-to-python-certificate.pdf"
-    ),
-    previewSrc: asset(
-      "certificate-previews/sololearn-introduction-to-python.png"
-    ),
-    label: "Introduction to Python",
+    certHref: asset("certificates/sololearn-python-developer-certificate.pdf"),
+    previewSrc: asset("certificate-previews/sololearn-python-developer.png"),
+    label: "Python Developer",
     subtitle: "SoloLearn certificate",
   },
 ];
@@ -355,18 +349,18 @@ function ProfileText() {
         I am currently strengthening my programming and audio-technology
         foundation through IBM&apos;s Python for Data Science, AI &amp;
         Development and Coursera&apos;s Audio Signal Processing for Music
-        Applications, with SoloLearn Introduction to Python kept as an
-        additional foundation certificate. I am also interested in building
-        enough software engineering knowledge to support audio tools,
-        measurement workflows, signal processing, and software-facing audio
-        roles.
+        Applications, with SoloLearn Python Developer kept as an additional
+        programming certificate. I am also interested in building enough
+        software engineering knowledge to support audio tools, measurement
+        workflows, signal processing, and software-facing audio roles.
       </p>
 
       <p>
         My certification record also includes PT101, PT110, PT130, Audiokinetic
-        Wwise Fundamentals, Avid Certified Pro Tools Specialist, and Avid
-        Certified Pro Tools Game Audio Specialist pathways, supporting both
-        post-production workflow and game-audio implementation practice.
+        Wwise Fundamentals, Avid Certified Pro Tools Specialist, Avid Certified
+        Pro Tools Game Audio Specialist, and SoloLearn Python Developer,
+        supporting both post-production workflow and technical audio development
+        practice.
       </p>
     </div>
   );
@@ -429,6 +423,7 @@ function TechnicalSkillsList({ small = false }: { small?: boolean }) {
       <li>Wwise Events, RTPCs, Switches &amp; Soundcaster</li>
       <li>Reaper spatial / ambisonic workflows</li>
       <li>Python acoustic calculation</li>
+      <li>Python Developer foundations</li>
       <li>Audio signal processing foundations</li>
       <li>CSV / plotting / technical documentation</li>
       <li>Foley, dialogue editing &amp; audio capture</li>
@@ -531,6 +526,17 @@ function EducationBlock({ full = false }: { full?: boolean }) {
       <div className="space-y-3">
         <div>
           <p className="font-semibold text-[#e5e7eb]">
+            SoloLearn Python Developer
+          </p>
+          <p className="text-[#9ca3af]">
+            Completed Python Developer certificate supporting Python syntax,
+            functions, data structures, object-oriented programming, and coding
+            confidence.
+          </p>
+        </div>
+
+        <div>
+          <p className="font-semibold text-[#e5e7eb]">
             IBM Python for Data Science, AI &amp; Development
           </p>
           <p className="text-[#9ca3af]">
@@ -547,16 +553,6 @@ function EducationBlock({ full = false }: { full?: boolean }) {
           <p className="text-[#9ca3af]">
             In progress; supporting DSP literacy, Python audio analysis,
             acoustics interest, and audio-technology development.
-          </p>
-        </div>
-
-        <div>
-          <p className="font-semibold text-[#e5e7eb]">
-            SoloLearn Introduction to Python
-          </p>
-          <p className="text-[#9ca3af]">
-            Completed foundation certificate supporting basic Python syntax,
-            functions, data structures, and coding confidence.
           </p>
         </div>
 
@@ -612,8 +608,8 @@ function ProfessionalExperienceBlock() {
             estimation with table, CSV and plot output.
           </li>
           <li>
-            Continued technical study through Avid, Wwise, IBM Python, Coursera
-            Audio Signal Processing, SoloLearn Python foundations, and
+            Continued technical study through Avid, Wwise, SoloLearn Python
+            Developer, IBM Python, Coursera Audio Signal Processing, and
             audio-focused programming preparation.
           </li>
         </ul>
@@ -821,3 +817,4 @@ export default function App() {
     </div>
   );
 }
+
